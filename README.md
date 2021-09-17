@@ -91,7 +91,7 @@ $ cd QuakeLogParser-ApiRest
 $ yarn install
 
 # Rode a aplicação
-$ yarn dev:server
+$ yarn start:dev
 ```
 Acesse a API: http://localhost:3333/
 
@@ -99,17 +99,15 @@ Acesse a API: http://localhost:3333/
 
 O Projeto conta com testes de integração e unitário.
 
-Lembre de adicionar a variável de ambiente MONGO_URL_TEST.
-
 ```bash
 # Rode os testes
 $ yarn test
 ```
 
 ### :camera: Testes Screenshot
-<div style="display: flex; flex-direction: 'row'; align-items: 'center';">
+<!-- <div style="display: flex; flex-direction: 'row'; align-items: 'center';">
   <img src="./.github/Testes.png" width="800px">
-</div>
+</div> -->
 
 ## :closed_book: Licencia
 

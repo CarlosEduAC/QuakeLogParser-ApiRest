@@ -25,7 +25,7 @@
     "application/json"
   ],
   "paths": {
-    "/planets": {
+    "/games": {
       "get": {
         "tags": [
           "Games"
@@ -39,12 +39,12 @@
             }
           },
           "404": {
-            "description": "Failed. Planet not found."
+            "description": "Failed. Game not found."
           }
         }
       }
     },
-    "/planets/{id}": {
+    "/games/{id}": {
       "parameters": [{
         "name": "id",
         "in": "path",
@@ -54,14 +54,14 @@
       }],
       "get": {
         "tags": [
-          "Planets"
+          "Games"
         ],
-        "summary": "Get planet with given ID",
+        "summary": "Get game with given ID",
         "parameters": [{
           "in": "path",
           "name": "id",
           "required": true,
-          "description": "Planet with id",
+          "description": "Game with id",
           "schema": {
             "$ref": "#/definitions/id"
           }
@@ -74,7 +74,7 @@
             }
           },
           "404": {
-            "description": "Failed. Planet not found."
+            "description": "Failed. Game not found."
           }
         }
       }
@@ -110,10 +110,10 @@
     "Games": {
       "type": "object",
       "properties": {
-        "planets": {
+        "games": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/definitions/Planet"
+            "$ref": "#/definitions/Game"
           }
         }
       }
