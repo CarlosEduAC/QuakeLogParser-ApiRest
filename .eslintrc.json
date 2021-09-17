@@ -49,6 +49,7 @@
                 "ts": "never"
             }
         ],
+        "@typescript-eslint/no-unused-vars": "off",
         "import-helpers/order-imports": [
             "warn",
             {
