@@ -1,0 +1,122 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Quake Log Parser ApiRest",
+    "description": "ApiRest to view Quake 3 Arena games",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [{
+      "url": "/",
+      "description": "Local Dev, or from Heroku"
+    }
+  ],
+  "tags": [{
+    "name": "Games",
+    "description": "ApiRest to view Quake 3 Arena games"
+  }],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/planets": {
+      "get": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Get all games in Quake Log",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Games"
+            }
+          },
+          "404": {
+            "description": "Failed. Planet not found."
+          }
+        }
+      }
+    },
+    "/planets/{id}": {
+      "parameters": [{
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "ID of the game that we want to find",
+        "type": "string"
+      }],
+      "get": {
+        "tags": [
+          "Planets"
+        ],
+        "summary": "Get planet with given ID",
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "description": "Planet with id",
+          "schema": {
+            "$ref": "#/definitions/id"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Game"
+            }
+          },
+          "404": {
+            "description": "Failed. Planet not found."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": {
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "Game": {
+      "type": "object",
+      "properties": {
+        "total_kills": {
+          "type": "number"
+        },
+        "players": {
+          "type": "string"
+        },
+        "kills": {
+          "type": "object",
+          "properties": {
+            "player": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "Games": {
+      "type": "object",
+      "properties": {
+        "planets": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Planet"
+          }
+        }
+      }
+    }
+  }
+}
