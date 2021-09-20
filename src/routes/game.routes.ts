@@ -19,11 +19,9 @@ GameRouter.post('/', (_, response) => {
     './src/data/games.log',
   );
 
-  const games = quakeLogParserService.execute();
+  quakeLogParserService.execute();
 
-  console.log(typeof games);
-
-  return response.status(201).json(games);
+  return response.status(201).send();
 });
 
 export default GameRouter;

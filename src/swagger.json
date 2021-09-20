@@ -83,14 +83,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/definitions/Games"
-                }
-              }
-            }
+            "description": "Created"
           },
           "400": {
             "description": "Not Found",

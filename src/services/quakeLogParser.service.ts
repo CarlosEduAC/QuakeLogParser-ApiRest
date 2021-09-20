@@ -16,7 +16,7 @@ class QuakeLogParserService {
     this.logPath = logPath;
   }
 
-  public execute(): IGameDTO[] {
+  public execute(): void {
     let gameLog = [];
 
     const stream = fs
@@ -63,12 +63,8 @@ class QuakeLogParserService {
             this.formattedGames = this.games.map<IGameDTO>(game => {
               return game.getGame();
             });
-
-            console.log(this.formattedGames);
           }),
       );
-
-    return this.formattedGames;
   }
 }
 
