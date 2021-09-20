@@ -1,20 +1,22 @@
 import { Router } from 'express';
 
-import GamesModel from '../database/games/games.model';
+import GameRepository from '../repositories/game.repository';
 import QuakeLogParserService from '../services/quakeLogParser.service';
 
 const GameRouter = Router();
 
-GameRouter.get('/', async (_, response) => {
-  const games = await GamesModel.find();
+const gameRepository = new GameRepository();
+
+GameRouter.get('/', (_, response) => {
+  const games = gameRepository.getGames();
 
   return response.json(games);
 });
 
-GameRouter.get('/:id', async (request, response) => {
+GameRouter.get('/:id', (request, response) => {
   const { id } = request.params;
 
-  const game = await GamesModel.findById(id);
+  const game = gameRepository.getById(id);
 
   return response.json(game);
 });

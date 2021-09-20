@@ -1,7 +1,6 @@
 import es from 'event-stream';
 import fs from 'fs';
 
-import GamesModel from '../database/games/games.model';
 import Game from '../entities/game.entity';
 import AppError from '../errors/app.errors';
 
@@ -28,13 +27,12 @@ class QuakeLogParserService {
             stream.pause();
 
             const manipulatedLine = logLine.match(LINE_COMMAND);
+            const stringIsClean = logLine.search(LINE_HAS_HYPHENS) === -1;
 
-            if (manipulatedLine) {
+            if (manipulatedLine && stringIsClean) {
               const currentCommand = manipulatedLine[1];
 
               const gameStarted = currentCommand === 'InitGame';
-
-              const stringIsClean = logLine.search(LINE_HAS_HYPHENS) === -1;
 
               const gameEnded = currentCommand === 'ShutdownGame';
 
@@ -42,9 +40,7 @@ class QuakeLogParserService {
                 gameLog = [];
               }
 
-              if (stringIsClean) {
-                gameLog.push(manipulatedLine);
-              }
+              gameLog.push(manipulatedLine);
 
               if (gameEnded) {
                 const game = new Game(gameLog);
@@ -62,17 +58,14 @@ class QuakeLogParserService {
             const response = {};
 
             this.games.forEach(async (game, index) => {
-              response[`game_${index}`] = game.getGame();
-              // await GamesModel.create(game);
+              response[`game_${index + 1}`] = game.getGame();
             });
 
             fs.writeFile(
               './src/data/response.json',
               JSON.stringify(response),
               err => {
-                if (err) throw err;
-
-                console.log('salvo!');
+                if (err) throw new AppError(err.message);
               },
             );
           }),
