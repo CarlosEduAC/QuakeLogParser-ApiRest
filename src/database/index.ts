@@ -2,15 +2,14 @@ import Mongoose from 'mongoose';
 
 let database: Mongoose.Connection;
 
-export const connect = (): void => {
-  const uri =
-    'mongodb+srv://root:quakelog@cluster.pa9ao.mongodb.net/quakelogdb?retryWrites=true&w=majority';
+const { MONGO_URL } = process.env;
 
+export const connect = (): void => {
   if (database) {
     return;
   }
 
-  Mongoose.connect(uri);
+  Mongoose.connect(MONGO_URL);
 
   database = Mongoose.connection;
 
