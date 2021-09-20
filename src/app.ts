@@ -2,11 +2,14 @@ import cors from 'cors';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 
+import { connect } from './database';
 import ErrorHandler from './errors/handler.errors';
 import routes from './routes';
 import * as swaggerDocument from './swagger.json';
 
 const app = express();
+
+connect();
 
 app.use(express.json());
 app.use(cors());

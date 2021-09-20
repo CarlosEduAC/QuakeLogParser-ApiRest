@@ -1,17 +1,22 @@
 import { Router } from 'express';
 
+import GamesModel from '../database/games/games.model';
 import QuakeLogParserService from '../services/quakeLogParser.service';
 
 const GameRouter = Router();
 
-GameRouter.get('/', (_, response) => {
-  return response.json({ response: 'Hello Horld!' });
+GameRouter.get('/', async (_, response) => {
+  const games = await GamesModel.find();
+
+  return response.json(games);
 });
 
-GameRouter.get('/:id', (request, response) => {
+GameRouter.get('/:id', async (request, response) => {
   const { id } = request.params;
 
-  return response.json({ response: `Hello Horld! ${id}` });
+  const game = await GamesModel.findById(id);
+
+  return response.json(game);
 });
 
 GameRouter.post('/', (_, response) => {
@@ -19,11 +24,9 @@ GameRouter.post('/', (_, response) => {
     './src/data/games.log',
   );
 
-  const games = quakeLogParserService.execute();
+  quakeLogParserService.execute();
 
-  console.log(typeof games);
-
-  return response.status(201).json(games);
+  return response.status(201).send();
 });
 
 export default GameRouter;

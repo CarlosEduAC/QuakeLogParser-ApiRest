@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export interface IGameDTO {
-  id: string;
   totalKills: number;
   players: string[];
   kills: object; //eslint-disable-line
@@ -11,13 +10,11 @@ const PLAYER_NAME = /ClientUserinfoChanged: [0-9]* n\\(.*)\\t\\[0-9]+\\model/;
 const FIGHTERS_NAME = /Kill: [0-9 ]*: (.*) killed (.*) by/;
 
 class Game {
-  private id: string;
   private totalKills: number;
   private players: string[];
   private kills: Map<string, number>;
 
   constructor(gameLog = []) {
-    this.id = uuidv4();
     this.totalKills = 0;
     this.players = [];
     this.kills = new Map<string, number>();
@@ -76,21 +73,6 @@ class Game {
         this.kills.set(fighters[1], playerKills + 1);
       }
     }
-  }
-
-  public getGame(): IGameDTO {
-    const obj = {};
-
-    this.kills.forEach((value, key): void => {
-      obj[key] = value;
-    });
-
-    return {
-      id: this.id,
-      totalKills: this.totalKills,
-      players: this.players,
-      kills: obj,
-    };
   }
 }
 

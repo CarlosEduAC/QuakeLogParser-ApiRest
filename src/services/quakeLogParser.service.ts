@@ -1,22 +1,22 @@
 import es from 'event-stream';
 import fs from 'fs';
 
+import GamesModel from '../database/games/games.model';
+import Game from '../entities/game.entity';
 import AppError from '../errors/app.errors';
-import Game, { IGameDTO } from '../model/Game';
 
 const LINE_HAS_HYPHENS = /(-)\1+/;
 const LINE_COMMAND = /^.{0,7}([a-z A-Z][^:]*)/;
 
 class QuakeLogParserService {
   private logPath: string;
-  private formattedGames: IGameDTO[];
   private games = [];
 
   constructor(logPath: string) {
     this.logPath = logPath;
   }
 
-  public execute(): IGameDTO[] {
+  public execute(): void {
     let gameLog = [];
 
     const stream = fs
@@ -24,7 +24,7 @@ class QuakeLogParserService {
       .pipe(es.split())
       .pipe(
         es
-          .mapSync((logLine: string) => {
+          .mapSync(async (logLine: string) => {
             stream.pause();
 
             const manipulatedLine = logLine.match(LINE_COMMAND);
@@ -55,20 +55,15 @@ class QuakeLogParserService {
 
             stream.resume();
           })
-          .on('error', err => {
-            console.log(err);
+          .on('error', () => {
             throw new AppError('Error while reading file!');
           })
           .on('end', () => {
-            this.formattedGames = this.games.map<IGameDTO>(game => {
-              return game.getGame();
+            this.games.forEach(async game => {
+              await GamesModel.create(game);
             });
-
-            console.log(this.formattedGames);
           }),
       );
-
-    return this.formattedGames;
   }
 }
 

@@ -43,21 +43,21 @@
             }
           },
           "400": {
-            "description": "Failed. Game not found.",
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/definitions/Error"
                 },
                 "example": {
-                  "message": "Error while reading file!",
+                  "message": "Failed. Game not found!",
                   "status": 400
                 }
               }
             }
           },
           "500": {
-            "description": "Failed. Game not found.",
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -199,32 +199,42 @@
     "Game": {
       "type": "object",
       "properties": {
-        "total_kills": {
+        "_id": {
+          "type": "string"
+        },
+        "totalKills": {
           "type": "number"
         },
         "players": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "kills": {
-          "type": "object",
-          "properties": {
-            "player": {
-              "type": "number"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "player": {
+                "type": "number"
+              }
             }
           }
+        },
+        "lastUpdated": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
         }
       }
     },
     "Games": {
-      "type": "object",
-      "properties": {
-        "games": {
-          "type": "array",
-          "minItems": 2,
-          "items": {
-            "$ref": "#/definitions/Game"
-          }
-        }
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/definitions/Game"
       }
     }, 
     "Error": {
