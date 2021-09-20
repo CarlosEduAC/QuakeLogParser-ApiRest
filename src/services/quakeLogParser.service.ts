@@ -59,9 +59,22 @@ class QuakeLogParserService {
             throw new AppError('Error while reading file!');
           })
           .on('end', () => {
-            this.games.forEach(async game => {
-              await GamesModel.create(game);
+            const response = {};
+
+            this.games.forEach(async (game, index) => {
+              response[`game_${index}`] = game.getGame();
+              // await GamesModel.create(game);
             });
+
+            fs.writeFile(
+              './src/data/response.json',
+              JSON.stringify(response),
+              err => {
+                if (err) throw err;
+
+                console.log('salvo!');
+              },
+            );
           }),
       );
   }

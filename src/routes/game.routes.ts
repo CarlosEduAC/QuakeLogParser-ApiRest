@@ -26,7 +26,10 @@ GameRouter.post('/', (_, response) => {
 
   quakeLogParserService.execute();
 
-  return response.status(201).send();
+  return response.status(201).json({
+    status: 201,
+    message: 'Success!',
+  });
 });
 
 export default GameRouter;

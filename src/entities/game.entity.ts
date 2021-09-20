@@ -74,6 +74,20 @@ class Game {
       }
     }
   }
+
+  public getGame(): IGameDTO {
+    const obj = {};
+
+    this.kills.forEach((value, key): void => {
+      obj[key] = value;
+    });
+
+    return {
+      totalKills: this.totalKills,
+      players: this.players,
+      kills: obj,
+    };
+  }
 }
 
 export default Game;

@@ -9,7 +9,10 @@ export const connect = (): void => {
     return;
   }
 
-  Mongoose.connect(MONGO_URL);
+  // Mongoose.connect(MONGO_URL);
+  Mongoose.connect(
+    'mongodb+srv://root:quakelog@cluster.pa9ao.mongodb.net/quakelogdb?retryWrites=true&w=majority',
+  );
 
   database = Mongoose.connection;
 
