@@ -1,0 +1,8 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "docker",
+  "password": "123456",
+  "database": "quakelogdb"
+}
