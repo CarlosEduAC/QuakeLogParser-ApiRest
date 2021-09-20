@@ -1,6 +1,5 @@
 lib-cov
 *.seed
-*.log
 *.csv
 *.dat
 *.out
@@ -19,6 +18,7 @@ tmp
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+docs/*
 
 # Build
 public/css/main.css

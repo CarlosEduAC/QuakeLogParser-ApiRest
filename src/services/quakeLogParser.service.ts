@@ -1,21 +1,23 @@
 import es from 'event-stream';
 import fs from 'fs';
 
-import Game from '../model/Game';
+import AppError from '../errors/app.errors';
+import Game, { IGameDTO } from '../model/Game';
 
 const LINE_HAS_HYPHENS = /(-)\1+/;
 const LINE_COMMAND = /^.{0,7}([a-z A-Z][^:]*)/;
 
-class QuakeLogParser {
+class QuakeLogParserService {
   private logPath: string;
+  private formattedGames: IGameDTO[];
   private games = [];
 
   constructor(logPath: string) {
     this.logPath = logPath;
   }
 
-  public start(): void {
-    let game = [];
+  public execute(): IGameDTO[] {
+    let gameLog = [];
 
     const stream = fs
       .createReadStream(this.logPath)
@@ -37,37 +39,37 @@ class QuakeLogParser {
               const gameEnded = currentCommand === 'ShutdownGame';
 
               if (gameStarted) {
-                game = [];
+                gameLog = [];
               }
 
               if (stringIsClean) {
-                game.push(manipulatedLine);
+                gameLog.push(manipulatedLine);
               }
 
               if (gameEnded) {
-                this.addGame(game);
+                const game = new Game(gameLog);
+
+                this.games.push(game);
               }
             }
 
             stream.resume();
           })
+          .on('error', err => {
+            console.log(err);
+            throw new AppError('Error while reading file!');
+          })
           .on('end', () => {
-            this.games.forEach(response => {
-              console.log(response.getGame());
+            this.formattedGames = this.games.map<IGameDTO>(game => {
+              return game.getGame();
             });
+
+            console.log(this.formattedGames);
           }),
       );
+
+    return this.formattedGames;
   }
-
-  private addGame = (gameLog): void => {
-    const game = new Game(gameLog);
-
-    this.games.push(game);
-  };
 }
 
-const quakeLogParser = new QuakeLogParser('./src/scripts/data/games.log');
-
-quakeLogParser.start();
-
-export default QuakeLogParser;
+export default QuakeLogParserService;

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-interface IGameResponse {
+export interface IGameDTO {
   id: string;
   totalKills: number;
   players: string[];
@@ -75,13 +75,12 @@ class Game {
 
         this.kills.set(fighters[1], playerKills + 1);
       }
-    } else {
-      console.log(line);
     }
   }
 
-  public getGame(): IGameResponse {
+  public getGame(): IGameDTO {
     const obj = {};
+
     this.kills.forEach((value, key): void => {
       obj[key] = value;
     });

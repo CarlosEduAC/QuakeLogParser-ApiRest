@@ -34,12 +34,91 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Games"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Games"
+                }
+              }
             }
           },
-          "404": {
-            "description": "Failed. Game not found."
+          "400": {
+            "description": "Failed. Game not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                },
+                "example": {
+                  "message": "Error while reading file!",
+                  "status": 400
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed. Game not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                },
+                "example": {
+                  "message": "Internal Server Error!",
+                  "status": 500
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Adding and analyzing new games",
+        "description": "Adding and analyzing new games",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Games"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                },
+                "example": {
+                  "message": "Failed. Bad post data!",
+                  "status": 400
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                },
+                "example": {
+                  "message": "Internal Server Error!",
+                  "status": 500
+                }
+              }
+            }
           }
         }
       }
@@ -69,12 +148,41 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Game"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Game"
+                }
+              }
             }
           },
-          "404": {
-            "description": "Failed. Game not found."
+          "400": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                },
+                "example": {
+                  "message": "Failed. Game not found!",
+                  "status": 400
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                },
+                "example": {
+                  "message": "Internal Server Error!",
+                  "status": 500
+                }
+              }
+            }
           }
         }
       }
@@ -111,10 +219,22 @@
       "type": "object",
       "properties": {
         "games": {
-          "type": "object",
-          "additionalProperties": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
             "$ref": "#/definitions/Game"
           }
+        }
+      }
+    }, 
+    "Error": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "number"
         }
       }
     }
