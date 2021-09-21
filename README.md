@@ -55,23 +55,26 @@ API REST para manter uma coleção de planetas do universo Star Wars. Dando a po
 
 * Listar jogos
 * Buscar por jogo
+* Fazer Parser do QuakeLog
 
 Para facilitar na visualização, desemvolvimento e documentação da API, foi utilizado
 o [Swagger](https://swagger.io/).
 
 ### :camera: Swagger Screenshot
 <div style="display: flex; flex-direction: 'row'; align-items: 'center';">
-  <!-- <img src="./.github/Swagger.png" width="800px">
+  <img src="./.github/Swagger.png" width="800px">
   <img src="./.github/Swagger-Get.png" width="800px">
-  <img src="./.github/Swagger-FindById.png" width="800px"> -->
+  <img src="./.github/Swagger-Post.png" width="800px">
+  <img src="./.github/Swagger-FindById.png" width="800px">
 </div>
 
 Uma outra opção é o [Insominia](https://insomnia.rest/), que diferente do [Swagger](https://swagger.io/) não necessita de nenhuma configuração no projeto para funcionar.
 
 ### :camera: Insominia Screenshot
 <div style="display: flex; flex-direction: 'row'; align-items: 'center';">
-  <!-- <img src="./.github/Get.png" width="800px">
-  <img src="./.github/FindById.png" width="800px"> -->
+  <img src="./.github/Get.png" width="800px">
+  <img src="./.github/Post.png" width="800px">
+  <img src="./.github/FindById.png" width="800px">
 </div>
 
 ## :four: Como rodar
@@ -79,7 +82,7 @@ Uma outra opção é o [Insominia](https://insomnia.rest/), que diferente do [Sw
 ### 📦 Rode a API
 
 ```bash
-# Clone o Repositoria
+# Clone o Repositório
 $ git clone https://github.com/CarlosEduAC/QuakeLogParser-ApiRest
 ```
 
@@ -87,7 +90,7 @@ $ git clone https://github.com/CarlosEduAC/QuakeLogParser-ApiRest
 # Vá para a pasta do servidor
 $ cd QuakeLogParser-ApiRest
 
-# Instale as depedencias
+# Instale as dependências
 $ yarn install
 
 # Rode a aplicação
@@ -97,7 +100,7 @@ Acesse a API: http://localhost:3333/
 
 ### Testes
 
-O Projeto conta com testes de integração e unitário.
+O Projeto conta com testes unitários.
 
 ```bash
 # Rode os testes
@@ -105,9 +108,9 @@ $ yarn test
 ```
 
 ### :camera: Testes Screenshot
-<!-- <div style="display: flex; flex-direction: 'row'; align-items: 'center';">
+<div style="display: flex; flex-direction: 'row'; align-items: 'center';">
   <img src="./.github/Testes.png" width="800px">
-</div> -->
+</div>
 
 ## :closed_book: Licencia
 
