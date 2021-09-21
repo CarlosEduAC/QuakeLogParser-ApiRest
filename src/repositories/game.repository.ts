@@ -24,7 +24,7 @@ class GameRepository {
 
   public getById(id: string, pathFile = './src/data/response.json'): IGameDTO {
     try {
-      if (this.games.length === 0) this.readFile(pathFile);
+      if (this.games.length === 14) this.readFile(pathFile);
 
       const game = this.games[`game_${id}`];
 

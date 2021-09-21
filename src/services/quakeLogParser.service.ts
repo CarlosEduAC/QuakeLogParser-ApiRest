@@ -18,58 +18,62 @@ class QuakeLogParserService {
   public execute(): void {
     let gameLog = [];
 
-    const stream = fs
-      .createReadStream(this.logPath)
-      .pipe(es.split())
-      .pipe(
-        es
-          .mapSync(async (logLine: string) => {
-            stream.pause();
+    try {
+      const stream = fs
+        .createReadStream(this.logPath)
+        .pipe(es.split())
+        .pipe(
+          es
+            .mapSync(async (logLine: string) => {
+              stream.pause();
 
-            const manipulatedLine = logLine.match(LINE_COMMAND);
-            const stringIsClean = logLine.search(LINE_HAS_HYPHENS) === -1;
+              const manipulatedLine = logLine.match(LINE_COMMAND);
+              const stringIsClean = logLine.search(LINE_HAS_HYPHENS) === -1;
 
-            if (manipulatedLine && stringIsClean) {
-              const currentCommand = manipulatedLine[1];
+              if (manipulatedLine && stringIsClean) {
+                const currentCommand = manipulatedLine[1];
 
-              const gameStarted = currentCommand === 'InitGame';
+                const gameStarted = currentCommand === 'InitGame';
 
-              const gameEnded = currentCommand === 'ShutdownGame';
+                const gameEnded = currentCommand === 'ShutdownGame';
 
-              if (gameStarted) {
-                gameLog = [];
+                if (gameStarted) {
+                  gameLog = [];
+                }
+
+                gameLog.push(manipulatedLine);
+
+                if (gameEnded) {
+                  const game = new Game(gameLog);
+
+                  this.games.push(game);
+                }
               }
 
-              gameLog.push(manipulatedLine);
+              stream.resume();
+            })
+            .on('error', () => {
+              throw new AppError('Error while reading file!');
+            })
+            .on('end', () => {
+              const response = {};
 
-              if (gameEnded) {
-                const game = new Game(gameLog);
+              this.games.forEach(async (game, index) => {
+                response[`game_${index + 1}`] = game.getGame();
+              });
 
-                this.games.push(game);
-              }
-            }
-
-            stream.resume();
-          })
-          .on('error', () => {
-            throw new AppError('Error while reading file!');
-          })
-          .on('end', () => {
-            const response = {};
-
-            this.games.forEach(async (game, index) => {
-              response[`game_${index + 1}`] = game.getGame();
-            });
-
-            fs.writeFile(
-              './src/data/response.json',
-              JSON.stringify(response),
-              err => {
-                if (err) throw new AppError(err.message);
-              },
-            );
-          }),
-      );
+              fs.writeFile(
+                './src/data/response.json',
+                JSON.stringify(response),
+                err => {
+                  if (err) throw new AppError(err.message);
+                },
+              );
+            }),
+        );
+    } catch (err) {
+      throw new AppError(err.message);
+    }
   }
 }
 
