@@ -47,7 +47,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Error"
+                  "$ref": "#/definitions/Message"
                 },
                 "example": {
                   "message": "Failed. Game not found!",
@@ -61,7 +61,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Error"
+                  "$ref": "#/definitions/Message"
                 },
                 "example": {
                   "message": "Internal Server Error!",
@@ -87,7 +87,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Games"
+                  "$ref": "#/definitions/Message"
+                },
+                "example": {
+                  "message": "Success!",
+                  "status": 201
                 }
               }
             }
@@ -97,7 +101,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Error"
+                  "$ref": "#/definitions/Message"
                 },
                 "example": {
                   "message": "Failed. Bad post data!",
@@ -111,7 +115,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Error"
+                  "$ref": "#/definitions/Message"
                 },
                 "example": {
                   "message": "Internal Server Error!",
@@ -140,7 +144,7 @@
           "in": "path",
           "name": "id",
           "required": true,
-          "description": "Game with id",
+          "description": "Game id starting at 1",
           "schema": {
             "$ref": "#/definitions/id"
           }
@@ -161,7 +165,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Error"
+                  "$ref": "#/definitions/Message"
                 },
                 "example": {
                   "message": "Failed. Game not found!",
@@ -175,7 +179,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Error"
+                  "$ref": "#/definitions/Message"
                 },
                 "example": {
                   "message": "Internal Server Error!",
@@ -199,9 +203,6 @@
     "Game": {
       "type": "object",
       "properties": {
-        "_id": {
-          "type": "string"
-        },
         "totalKills": {
           "type": "number"
         },
@@ -224,9 +225,6 @@
         },
         "lastUpdated": {
           "type": "string"
-        },
-        "__v": {
-          "type": "number"
         }
       }
     },
@@ -237,7 +235,7 @@
         "$ref": "#/definitions/Game"
       }
     }, 
-    "Error": {
+    "Message": {
       "type": "object",
       "properties": {
         "message": {
