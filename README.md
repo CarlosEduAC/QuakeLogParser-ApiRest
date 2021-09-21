@@ -39,6 +39,31 @@
 
 ## :one: Sobre o Projeto
 
+Projeto composto por duas tasks. Na primeira é necessário construir uma parser para o arquivo de log [games.log](https://github.com/CarlosEduAC/QuakeLogParser-ApiRest/blob/main/src/data/games.log) gerando o arquivo [response.json](https://github.com/CarlosEduAC/QuakeLogParser-ApiRest/blob/main/src/data/response.json) como responsta.
+
+O parser é capaz de ler o arquivo, agrupar os dados de cada jogo, e em cada jogo coleta as informações de morte.
+
+Para cada jogo o parser deve gerar algo como:
+
+```bash
+game_1: {
+  total_kills: 45,
+  players: ["Dono da bola", "Isgalamido", "Zeh"],
+  kills: {
+    "Dono da bola": 5,
+    "Isgalamido": 18,
+    "Zeh": 20
+  }
+}
+```
+
+Na segunda task é necessário construir uma API Rest com métodos de consulta que retorna uma lista de jogos e permita busca por jogo individualmente.
+
+A estrutura do projeto é simples e seguindo boas práticas, porém preparada para adição de conceitos como DDD e CQRS que permitem uma maior qualidade, escalabilidade, disponibilidade e entendimento do contexto do projeto.
+
+Um detalhe importante foi a escolha do Typescript, NodeJS e Express para a construção da REST API. O Typescript se trata de um superset da conhecida linguagem de programação Javascript que adiciona algumas features interessantes que facilitam no uso de orientação a objetos, aplicação de conceitos de DDD e CQRS para uma melhor organização do projeto.
+
+Obs.: Na branch [using-mongodb](https://github.com/CarlosEduAC/QuakeLogParser-ApiRest/tree/feature/using-mongodb) foi configurado o [mongodb](https://www.mongodb.com/cloud/atlas?utm_content=rlsapostreg&utm_source=google&utm_campaign=gs_americas_rlsamultirest_search_brand_dsa_atlas_desktop_rlsa_postreg&utm_term=&utm_medium=cpc_paid_search&utm_ad=b&utm_ad_campaign_id=14412646452&gclid=CjwKCAjw4qCKBhAVEiwAkTYsPLtYS8Wc_iyOGqEahpdA3OvLPc-b_3EnewduAGKGeoyTV_Z7lMcBfhoCSvQQAvD_BwE) que armazena as informações do log no [MongoDB Atlas](https://www.mongodb.com/pt-br/cloud/atlas/efficiency). A ideia era a de armazenar as informações dos jogos e continuar tendo acesso mesmo após desconectar a Api, já que as informações estão em uma instância de banco remota.
 
 ## :two: Tecnologias
 Esse projeto foi feito utilizando as seguintes tecnologias:
@@ -55,7 +80,7 @@ API REST para manter uma coleção de planetas do universo Star Wars. Dando a po
 
 * Listar jogos
 * Buscar por jogo
-* Fazer Parser do QuakeLog
+* Fazer Parser do QuakeLog (Método Post realiza o processo de Parser e gera o arquivo response.json)
 
 Para facilitar na visualização, desemvolvimento e documentação da API, foi utilizado
 o [Swagger](https://swagger.io/).
