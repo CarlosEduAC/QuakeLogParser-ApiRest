@@ -39,7 +39,7 @@
 
 ## :one: Sobre o Projeto
 
-Projeto composto por duas tasks. Na primeira é necessário construir uma parser para o arquivo de log [games.log](https://github.com/CarlosEduAC/QuakeLogParser-ApiRest/blob/main/src/data/games.log) gerando o arquivo [response.json](https://github.com/CarlosEduAC/QuakeLogParser-ApiRest/blob/main/src/data/response.json) como responsta.
+Projeto composto por duas tasks. Na primeira é necessário construir uma parser para o arquivo de log [games.log](https://github.com/CarlosEduAC/QuakeLogParser-ApiRest/blob/main/src/data/games.log) gerando o arquivo [response.json](https://github.com/CarlosEduAC/QuakeLogParser-ApiRest/blob/main/src/data/response.json) como resposta.
 
 O parser é capaz de ler o arquivo, agrupar os dados de cada jogo, e em cada jogo coleta as informações de morte.
 
@@ -57,11 +57,11 @@ game_1: {
 }
 ```
 
-Na segunda task é necessário construir uma API Rest com métodos de consulta que retorna uma lista de jogos e permita busca por jogo individualmente.
+Na segunda task é necessário construir uma API Rest com métodos de consulta que retorna uma lista de jogos e permita busca por jogo individualmente. Um adicional foi a cruação de um método para startar o parser.
 
-A estrutura do projeto é simples e seguindo boas práticas, porém preparada para adição de conceitos como DDD e CQRS que permitem uma maior qualidade, escalabilidade, disponibilidade e entendimento do contexto do projeto.
+A estrutura do projeto é simples e seguindo boas práticas, porém preparada para adição de conceitos como DDD e CQRS que permitem uma maior qualidade, escalabilidade, disponibilidade e entendimento do contexto do projeto (clean architecture).
 
-Um detalhe importante foi a escolha do Typescript, NodeJS e Express para a construção da REST API. O Typescript se trata de um superset da conhecida linguagem de programação Javascript que adiciona algumas features interessantes que facilitam no uso de orientação a objetos, aplicação de conceitos de DDD e CQRS para uma melhor organização do projeto.
+Um detalhe importante foi a escolha do Typescript, NodeJS e Express para a construção da REST API. O Typescript se trata de um superset da conhecida linguagem de programação Javascript que adiciona algumas features interessantes que facilitam n aplicação de conceitos de DDD e CQRS para uma melhor estruturação da arquitetura do projeto , melhora o uso de orientação a objetos, adiciona tipagem que facilita na percepção dos objetos que estão sendo usados durante o desenvolvimento.
 
 Obs.: Na branch [using-mongodb](https://github.com/CarlosEduAC/QuakeLogParser-ApiRest/tree/feature/using-mongodb) foi configurado o [mongodb](https://www.mongodb.com/cloud/atlas?utm_content=rlsapostreg&utm_source=google&utm_campaign=gs_americas_rlsamultirest_search_brand_dsa_atlas_desktop_rlsa_postreg&utm_term=&utm_medium=cpc_paid_search&utm_ad=b&utm_ad_campaign_id=14412646452&gclid=CjwKCAjw4qCKBhAVEiwAkTYsPLtYS8Wc_iyOGqEahpdA3OvLPc-b_3EnewduAGKGeoyTV_Z7lMcBfhoCSvQQAvD_BwE) que armazena as informações do log no [MongoDB Atlas](https://www.mongodb.com/pt-br/cloud/atlas/efficiency). A ideia era a de armazenar as informações dos jogos e continuar tendo acesso mesmo após desconectar a Api, já que as informações estão em uma instância de banco remota.
 
